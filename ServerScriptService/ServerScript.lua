@@ -1,25 +1,25 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local PhysicsService = game:GetService("PhysicsService")
+local PhysicsSerive = game:GetService("PhysicsService")
 local Players = game:GetService("Players")
 
 local Modules = ReplicatedStorage:WaitForChild("Modules")
 
 local Mob = require(Modules:WaitForChild("Mob"))
 
-local CollisionGroups = {
+local CollisionsNames = {
 	"Mobs",
 	"Units",
 	"Towers",
 	"Players"
 }
 
-for i, collisionName in pairs(CollisionGroups) do
-	PhysicsService:RegisterCollisionGroup(collisionName)
+for i, collisionName in pairs(CollisionsNames) do
+	PhysicsSerive:RegisterCollisionGroup(collisionName)
 end
 
-for i, collisionName in pairs(CollisionGroups) do
-	for i, collisionName2 in pairs(CollisionGroups) do
-		PhysicsService:CollisionGroupSetCollidable(collisionName, collisionName2, false)
+for i, collisionName in pairs(CollisionsNames) do
+	for _, collisionName2 in pairs(CollisionsNames) do
+		PhysicsSerive:CollisionGroupSetCollidable(collisionName, collisionName2, false)
 	end
 end
 
@@ -32,9 +32,12 @@ Players.PlayerAdded:Connect(function(plr)
 		end
 	end)
 	
-	task.wait(5)
+	for i=5, 1, -1 do
+		print("starting in " .. i .. " seconds.")
+		task.wait(1)
+	end
 	
-	Mob.Spawn("Dummy", 4, 0.15, nil)
-	Mob.Spawn("SlowDummy", 2, 0.325, nil)
-	Mob.Spawn("StudioDevX", 1, 0.1, nil)
+	Mob.Spawn("Dummy", 4, 0.22, nil)
+	Mob.Spawn("SlowDummy", 2, 0.32, nil)
+	Mob.Spawn("StudioDevX", 1, 0.22, nil)
 end)

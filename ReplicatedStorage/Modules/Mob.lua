@@ -1,13 +1,14 @@
 local ServerStorage = game:GetService("ServerStorage")
-
-local MobFolder = ServerStorage:WaitForChild("Mobs")
+local EntitiesFolder = ServerStorage:WaitForChild("Entities")
+local MobsFolder = EntitiesFolder:WaitForChild("Mobs")
 
 local mob = {}
 
 function mob.Move(mobToMove)
 	local Waypoints = workspace.Map.Waypoints
+	local Humanoid = mobToMove:WaitForChild("Humanoid")
 	
-	for i=1, #Waypoints:GetChildren() do
+	for waypoint=1, #Waypoints:GetChildren() do
 		local function moveTo(humanoid, targetPoint)
 			local targetReached = false
 
@@ -29,7 +30,7 @@ function mob.Move(mobToMove)
 						break
 					end
 					humanoid:MoveTo(targetPoint)
-					task.wait(0.1)
+					task.wait(6)
 				end
 
 				if connection then
@@ -39,37 +40,43 @@ function mob.Move(mobToMove)
 			end)
 		end
 
-		moveTo(mobToMove:WaitForChild("Humanoid"), Waypoints[i].Position)
-		mobToMove:WaitForChild("Humanoid").MoveToFinished:Wait()
+		moveTo(Humanoid, Waypoints[waypoint].Position)
+		Humanoid.MoveToFinished:Wait()
 	end
 	
-	workspace.Map.Base.Humanoid:TakeDamage(mobToMove:WaitForChild("Humanoid").Health)
+	if Humanoid.Health >= workspace.Map.Info.Health.Value then
+		workspace.Map.Info.Health.Value -= Humanoid.Health
+	else
+		workspace.Map.Info.Health.Value = 0
+	end
 	mobToMove:Destroy()
 end
 
 function mob.Spawn(name, quantity, spawnRate, mobInfo)
-	local mobToSpawn = MobFolder:FindFirstChild(name)
+	local mobExists = MobsFolder:FindFirstChild(name)
 	
-	if mobToSpawn then
+	if mobExists then
 		for i=1, quantity do
 			spawn(function()
-				local newMob = mobToSpawn:Clone()
-
+				local newMob = mobExists:Clone()
+				
+				newMob:WaitForChild("HumanoidRootPart").CFrame = workspace.Map.Start.CFrame
+				
 				for i, part in pairs(newMob:GetDescendants()) do
 					if part:IsA("BasePart") then
 						part.CollisionGroup = "Mobs"
 					end
 				end
 				
-				newMob:WaitForChild("HumanoidRootPart").CFrame = workspace.Map.Start.CFrame
-
 				newMob.Parent = workspace.Entities.Mobs
-				mob.Move(newMob)
+				
+				coroutine.wrap(mob.Move)(newMob)
 			end)
-			task.wait(spawnRate)
+			task.wait(spawnRate or 0.85)
 		end
 	else
 		warn("Requested mob does not exist:", name)
+		return
 	end
 end
 
