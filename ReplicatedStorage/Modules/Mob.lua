@@ -44,7 +44,7 @@ function mob.Move(mobToMove)
 		Humanoid.MoveToFinished:Wait()
 	end
 	
-	if Humanoid.Health >= workspace.Map.Info.Health.Value then
+	if Humanoid.Health <= workspace.Map.Info.Health.Value then
 		workspace.Map.Info.Health.Value -= Humanoid.Health
 	else
 		workspace.Map.Info.Health.Value = 0
