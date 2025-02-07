@@ -1,5 +1,5 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local PhysicsSerive = game:GetService("PhysicsService")
+local PhysicsService = game:GetService("PhysicsService")
 local Players = game:GetService("Players")
 
 local Modules = ReplicatedStorage:WaitForChild("Modules")
@@ -14,12 +14,12 @@ local CollisionsNames = {
 }
 
 for i, collisionName in pairs(CollisionsNames) do
-	PhysicsSerive:RegisterCollisionGroup(collisionName)
+	PhysicsService:RegisterCollisionGroup(collisionName)
 end
 
 for i, collisionName in pairs(CollisionsNames) do
 	for _, collisionName2 in pairs(CollisionsNames) do
-		PhysicsSerive:CollisionGroupSetCollidable(collisionName, collisionName2, false)
+		PhysicsService:CollisionGroupSetCollidable(collisionName, collisionName2, false)
 	end
 end
 
