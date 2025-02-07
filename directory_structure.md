@@ -1,10 +1,10 @@
 # Directory Structure
 
-## Root Directory
+## Root Directory 🚀
 
-The root directory contains essential files and folders for setting up and organizing the project.
+The root directory contains essential files and folders for setting up and organizing the project in **Roblox Studio**.
 
-### Files in Root
+### Files in Root 📁
 
 - **README.md**: Project overview and key information.
 - **LICENSE**: Project licensing details.
@@ -12,22 +12,22 @@ The root directory contains essential files and folders for setting up and organ
 
 ---
 
-## Folders
+## Folders 📂
 
-### 1. **ServerScriptService/**
+### 1. **ServerScriptService/** 🖥️
 
 Contains server-side scripts.
 
 - `ServerScript/`: Server script for creating collisions and spawning mobs.
 
-### 2. **ReplicatedStorage/**
+### 2. **ReplicatedStorage/** 🔄
 
 Shared modules accessible by both server and client.
 
 - `Modules/`: Contains reusable modules.
   - `Mob/`: Module for mob spawning.
 
-### 3. **ServerStorage/**
+### 3. **ServerStorage/** 🗄️
 
 Storage for server-side entities and resources.
 
@@ -35,7 +35,7 @@ Storage for server-side entities and resources.
   - `Units/`: Folder for units.
   - `Mobs/`: Folder for mobs.
 
-### 4. **Workspace/**
+### 4. **Workspace/** 🌍
 
 Holds visible game objects and spatial elements.
 
@@ -53,13 +53,13 @@ Holds visible game objects and spatial elements.
 
 ---
 
-## Структура Директорий (Roblox Studio)
+## Структура Директорий (Roblox Studio) 📚
 
-## Корневая директория
+## Корневая директория 🚀
 
-Корневая директория содержит основные файлы и папки для настройки и организации проекта.
+Корневая директория содержит основные файлы и папки для настройки и организации проекта в **Roblox Studio**.
 
-### Файлы в корне
+### Файлы в корне 📁
 
 - **README.md**: Обзор и ключевая информация о проекте.
 - **LICENSE**: Подробности о лицензировании проекта.
@@ -67,22 +67,22 @@ Holds visible game objects and spatial elements.
 
 ---
 
-## Папки
+## Папки 📂
 
-### 1. **ServerScriptService/**
+### 1. **ServerScriptService/** 🖥️
 
 Содержит серверные скрипты.
 
 - `ServerScript/`: Серверный скрипт для создания коллизий и спавна мобов.
 
-### 2. **ReplicatedStorage/**
+### 2. **ReplicatedStorage/** 🔄
 
 Общие модули, доступные как серверу, так и клиенту.
 
 - `Modules/`: Содержит переиспользуемые модули.
   - `Mob/`: Модуль для спавна мобов.
 
-### 3. **ServerStorage/**
+### 3. **ServerStorage/** 🗄️
 
 Хранилище сущностей и ресурсов на стороне сервера.
 
@@ -90,7 +90,7 @@ Holds visible game objects and spatial elements.
   - `Units/`: Папка для юнитов.
   - `Mobs/`: Папка для мобов.
 
-### 4. **Workspace/**
+### 4. **Workspace/** 🌍
 
 Содержит видимые игровые объекты и пространственные элементы.
 
