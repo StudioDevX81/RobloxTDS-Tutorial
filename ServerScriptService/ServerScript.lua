@@ -2,9 +2,11 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local PhysicsService = game:GetService("PhysicsService")
 local Players = game:GetService("Players")
 
+local Events = ReplicatedStorage.Events
 local Modules = ReplicatedStorage:WaitForChild("Modules")
 
 local Mob = require(Modules:WaitForChild("Mob"))
+local Tower = require(Modules:WaitForChild("Tower"))
 
 local CollisionsNames = {
 	"Mobs",
@@ -32,7 +34,7 @@ Players.PlayerAdded:Connect(function(plr)
 		end
 	end)
 	
-	for i=5, 1, -1 do
+	for i=10, 1, -1 do
 		print("starting in " .. i .. " seconds.")
 		task.wait(1)
 	end
@@ -41,3 +43,7 @@ Players.PlayerAdded:Connect(function(plr)
 	Mob.Spawn("SlowDummy", 2, 0.32, nil)
 	Mob.Spawn("StudioDevX", 1, 0.22, nil)
 end)
+
+Events.placeTower.OnServerInvoke = function(plr, name, cframe)
+	Tower.Spawn(plr, name, cframe)
+end

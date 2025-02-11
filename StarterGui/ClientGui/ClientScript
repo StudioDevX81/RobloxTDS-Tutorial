@@ -1,0 +1,101 @@
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+
+local Camera = workspace.CurrentCamera
+local Entities = workspace.Entities
+local Towers = ReplicatedStorage.Towers.Towers
+local TowersUpgrades = ReplicatedStorage.Towers.Upgrades
+
+local TowerToSpawn = nil
+local Rotation = 0
+
+local function mouseRayCast(model)
+	local MousePosition = UserInputService:GetMouseLocation()
+	local MouseRay = Camera:ViewportPointToRay(MousePosition.X, MousePosition.Y)
+	local raycastParams = RaycastParams.new()
+	
+	local BlackList = Camera:GetChildren()
+	
+	for i, plr in pairs(Players:GetPlayers()) do
+		if plr and plr.Character then
+			table.insert(BlackList, plr.Character)
+		end
+	end
+	
+	table.insert(BlackList, workspace.Map.Waypoints)
+	table.insert(BlackList, TowerToSpawn)
+	table.insert(BlackList, Entities)
+	
+	raycastParams.FilterDescendantsInstances = BlackList
+	local RaycastResult = workspace:Raycast(MouseRay.Origin, MouseRay.Direction * 1000, raycastParams)
+	return RaycastResult
+end
+
+local function SelectTower(name)
+	if TowerToSpawn then
+		TowerToSpawn:Destroy()
+		TowerToSpawn = nil
+	end
+	
+	TowerToSpawn = Towers[name]:Clone()
+	
+	for i, part in pairs(TowerToSpawn:GetDescendants()) do
+		if part:IsA("BasePart") then
+			part.CollisionGroup = "Towers"
+		end
+	end
+	
+	TowerToSpawn.Parent = Camera
+end
+
+UserInputService.InputBegan:Connect(function(input, process)
+	if process then
+		return
+	end
+	
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		if TowerToSpawn then
+			ReplicatedStorage.Events.placeTower:InvokeServer(TowerToSpawn.Name, TowerToSpawn.HumanoidRootPart.CFrame)
+			Rotation = 0
+			TowerToSpawn:Destroy()
+			TowerToSpawn = nil
+		end
+	elseif input.KeyCode == Enum.KeyCode.Q then
+		if TowerToSpawn then
+			Rotation = 0
+			TowerToSpawn:Destroy()
+			TowerToSpawn = nil
+		end
+	elseif input.KeyCode == Enum.KeyCode.R then
+		if Rotation == 360 then
+			Rotation = 0
+		end
+		Rotation += 45
+	elseif input.KeyCode == Enum.KeyCode.One then
+		SelectTower("TestTower")
+	end
+end)
+
+script.Parent.PlaceTower.Activated:Connect(function()
+	SelectTower("TestTower")
+end)
+
+RunService.RenderStepped:Connect(function()
+	local result = mouseRayCast(TowerToSpawn)
+	if result and result.Instance then
+		if TowerToSpawn then
+			local Position = result.Position
+			
+			local TargetCframe = CFrame.new(
+				Position.X,
+				Position.Y + TowerToSpawn.Humanoid.HipHeight + (TowerToSpawn.HumanoidRootPart.Size.Y / 2),
+				Position.Z
+			) * CFrame.Angles(0, math.rad(Rotation), 0)
+			
+			TowerToSpawn.HumanoidRootPart.CFrame = TargetCframe
+		end
+	end
+end)

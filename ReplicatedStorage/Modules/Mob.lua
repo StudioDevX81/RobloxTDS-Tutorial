@@ -39,7 +39,8 @@ function mob.Move(mobToMove)
 				end
 			end)
 		end
-
+		
+		mobToMove.MovingTo.Value = waypoint
 		moveTo(Humanoid, Waypoints[waypoint].Position)
 		Humanoid.MoveToFinished:Wait()
 	end
@@ -68,7 +69,15 @@ function mob.Spawn(name, quantity, spawnRate, mobInfo)
 					end
 				end
 				
+				local MovingTo = Instance.new("IntValue")
+				MovingTo.Name = "MovingTo"
+				MovingTo.Parent = newMob
+				
 				newMob.Parent = workspace.Entities.Mobs
+				
+				newMob.Humanoid.Died:Connect(function()
+					newMob:Destroy()
+				end)
 				
 				coroutine.wrap(mob.Move)(newMob)
 			end)

@@ -8,7 +8,7 @@ The root directory contains essential files and folders for setting up and organ
 
 - **README.md**: Project overview and key information.
 - **LICENSE**: Project licensing details.
-- **directory\_structure.md**: Documentation for project directory structure.
+- **directory_structure.md**: Documentation for project directory structure.
 
 ---
 
@@ -26,6 +26,13 @@ Shared modules accessible by both server and client.
 
 - `Modules/`: Contains reusable modules.
   - `Mob/`: Module for mob spawning.
+  - `Tower/`: Module for tower-related functionality.
+- `Events/`: Remote events for communication between server and client.
+  - `placeTower/`: Event for handling tower placement.
+- `Towers/`: Organized tower data.
+  - `Towers/`: Folder containing individual towers.
+    - `TestTower/`: Example test tower.
+  - `Upgrades/`: Folder for tower upgrade configurations.
 
 ### 3. **ServerStorage/** 🗄️
 
@@ -51,6 +58,14 @@ Holds visible game objects and spatial elements.
   - `Start/`: Start point of the map.
   - `Base/`: Base point of the map.
 
+### 5. **StarterGui/** 🖥️
+
+Contains client-side user interface scripts and elements.
+
+- `ClientGui/`: GUI components for the client.
+  - `ClientScript/`: Scripts for client GUI interactions.
+  - `PlaceTower/`: Button logic for placing towers in the game.
+
 ---
 
 ## Структура Директорий (Roblox Studio) 📚
@@ -63,7 +78,7 @@ Holds visible game objects and spatial elements.
 
 - **README.md**: Обзор и ключевая информация о проекте.
 - **LICENSE**: Подробности о лицензировании проекта.
-- **directory\_structure.md**: Документация структуры директорий проекта.
+- **directory_structure.md**: Документация структуры директорий проекта.
 
 ---
 
@@ -81,6 +96,13 @@ Holds visible game objects and spatial elements.
 
 - `Modules/`: Содержит переиспользуемые модули.
   - `Mob/`: Модуль для спавна мобов.
+  - `Tower/`: Модуль для функционала башен.
+- `Events/`: Удалённые события для связи между сервером и клиентом.
+  - `placeTower/`: Событие для обработки размещения башен.
+- `Towers/`: Организованные данные о башнях.
+  - `Towers/`: Папка с отдельными башнями.
+    - `TestTower/`: Тестовая башня.
+  - `Upgrades/`: Папка для конфигураций улучшений башен.
 
 ### 3. **ServerStorage/** 🗄️
 
@@ -106,4 +128,11 @@ Holds visible game objects and spatial elements.
   - `Start/`: Стартовая точка карты.
   - `Base/`: Базовая точка карты.
 
----
+### 5. **StarterGui/** 🖥️
+
+Содержит клиентские пользовательские интерфейсы и скрипты.
+
+- `ClientGui/`: Компоненты пользовательского интерфейса клиента.
+  - `ClientScript/`: Скрипты для взаимодействий с GUI и механика размещения башни.
+  - `PlaceTower/`: Кнопка для размещения башен.
+
